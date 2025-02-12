@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Document</title>
+        <style>
+            body {
+                background-color: #031324;
+                text-align: center;
+                margin: 100px auto;
+                font-family: Arial, sans-serif;
+                color: white;
+            }
+            .todo{
+                padding:30px;
+            }
+            input {
+                width: 220px;
+                padding: 12px;
+                border-radius: 6px;
+                border: none;
+                margin: 12px 0;
+                font-size: 18px;
+                background-color: #d5dbdb;
+            }
+            button {
+                border: none;
+                padding: 12px;
+                background-color: #8d8d8d;
+                color: white;
+                font-weight: bold;
+                cursor: pointer;
+                border-radius: 6px;
+                margin: 6px;
+                transition: background-color 0.3s;
+            }
+            button:hover {
+                background-color: #041e3a;
+            }
+            .list-item {
+                background-color: #ffffff;
+                color: #031324;
+                font-weight: bold;
+                min-width: 220px;
+                max-width: 450px;
+                padding: 12px;
+                margin: 12px auto;
+                border-radius: 6px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .list-item button {
+                background-color:  #9b0000;
+                padding: 6px 12px;
+                border-radius: 6px;
+                font-size: 16px;
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+            .list-item button:hover {
+                background-color:#4d0303 ;
+            }
+            .silinenler{
+                background-color: #4d0303;
+                color:white;
+            }
+        </style>
+        
+    </head>
+    <body>
+        <div class="todo">
+            <h2>To-Do List</h2>
+            <input type="text" id="todo" placeholder="Add..."/>
+            <button id="add">Add</button>
+            <button id="deleteAll">Delete All</button>
+            <button id="deletedItems">Deleted Items</button>
+            <div id="list"></div>
+            <div id="silinenler"></div>
+        </div>
+        <script>
+            const todo = document.getElementById('todo')
+            const list = document.getElementById('list')
+            const add = document.getElementById('add')
+            const deleteAll = document.getElementById('deleteAll')
+            const silinenler = document.getElementById('silinenler')
+            let saygac = 0
+            let todoArr=[];
+            let deletedArr=[];
+            add.onclick =  function add(){
+                todoArr.push(todo.value);
+                print();
+                todo.value=''
+            }
+            deleteAll.onclick= function deleteAll(){
+                list.innerHTML = '';
+                silinenler.innerHTML = '';
+            }
+            function remove(index){
+                deletedArr.push(todoArr[index]);
+                todoArr.splice(index,1);
+                print();
+            }
+            function print(){
+                list.innerHTML='';
+                for (let i = 0; i < todoArr.length; i++) {
+                list.innerHTML += `<div class="list-item">${todoArr[i]} <button onclick="remove(${i})">Delete</button> </div>`;
+            }
+            }
+            deletedItems.onclick = function ShowDeletedItems() {
+            silinenler.innerHTML = '';
+            let kod = '';
+            for (let i = 0; i < deletedArr.length; i++) {
+                kod += `<div class="list-item silinenler">${deletedArr[i]}</div>`;
+            }
+            silinenler.innerHTML = kod;
+        }
+
+        </script>
+    </body>
+</html>
