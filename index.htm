@@ -108,14 +108,22 @@
                 list.innerHTML += `<div class="list-item">${todoArr[i]} <button onclick="remove(${i})">Delete</button> </div>`;
             }
             }
-            deletedItems.onclick = function ShowDeletedItems() {
-            silinenler.innerHTML = '';
-            let kod = '';
-            for (let i = 0; i < deletedArr.length; i++) {
-                kod += `<div class="list-item silinenler">${deletedArr[i]}</div>`;
+        deletedItems.onclick = function ShowDeletedItems() {
+            if (silinenler.style.display === 'block') {
+                silinenler.style.display = 'none';
+                deletedItems.innerText = 'Deleted Items';
+            } else {
+                silinenler.style.display = 'block';
+                deletedItems.innerText = 'Hide';
+                silinenler.innerHTML = '';
+                let kod = '';
+                for (let i = 0; i < deletedArr.length; i++) {
+                    kod += `<div class="list-item silinenler">${deletedArr[i]}</div>`;
+                }
+                silinenler.innerHTML = kod;
             }
-            silinenler.innerHTML = kod;
         }
+
 
         </script>
     </body>
