@@ -62,9 +62,11 @@
             .list-item button:hover {
                 background-color:#4d0303 ;
             }
-            .silinenler{
+            #silinenler{
                 background-color: #4d0303;
                 color:white;
+                display: none;
+
             }
         </style>
     </head>
@@ -117,19 +119,20 @@
             }
 
             deletedItems.onclick = function () {
-                if (silinenler.style.display === 'block') {
-                    silinenler.style.display = 'none';
-                    deletedItems.innerText = 'Deleted Items';
-                } else {
-                    silinenler.style.display = 'block';
-                    deletedItems.innerText = 'Hide';
-                    silinenler.innerHTML = '';
-                    let kod = '';
-                    for (let i = 0; i < deletedArr.length; i++) {
-                        kod += `<div class="list-item silinenler">${deletedArr[i]}</div>`;
-                    }
-                    silinenler.innerHTML = kod;
-                }
+    if (silinenler.style.display === 'none' || silinenler.style.display === '') {
+        silinenler.style.display = 'block';
+        deletedItems.innerText = 'Hide';
+        silinenler.innerHTML = '';
+        let kod = '';
+        for (let i = 0; i < deletedArr.length; i++) {
+            kod += `<div class="list-item silinenler">${deletedArr[i]}</div>`;
+        }
+        silinenler.innerHTML = kod;
+    } else {
+        silinenler.style.display = 'none';
+        deletedItems.innerText = 'Deleted Items';
+    }
+};
             };
         </script>
     </body>
