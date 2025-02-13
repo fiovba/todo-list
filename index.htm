@@ -67,7 +67,6 @@
                 color:white;
             }
         </style>
-        
     </head>
     <body>
         <div class="todo">
@@ -80,51 +79,58 @@
             <div id="silinenler"></div>
         </div>
         <script>
-            const todo = document.getElementById('todo')
-            const list = document.getElementById('list')
-            const add = document.getElementById('add')
-            const deleteAll = document.getElementById('deleteAll')
-            const silinenler = document.getElementById('silinenler')
-            let saygac = 0
-            let todoArr=[];
-            let deletedArr=[];
-            add.onclick =  function add(){
-                todoArr.push(todo.value);
-                print();
-                todo.value=''
-            }
-            deleteAll.onclick= function deleteAll(){
+            const todo = document.getElementById('todo');
+            const list = document.getElementById('list');
+            const add = document.getElementById('add');
+            const deleteAll = document.getElementById('deleteAll');
+            const deletedItems = document.getElementById('deletedItems');
+            const silinenler = document.getElementById('silinenler');
+            let todoArr = [];
+            let deletedArr = [];
+
+            add.onclick = function () {
+                if (todo.value.trim() !== '') {
+                    todoArr.push(todo.value);
+                    print();
+                    todo.value = '';
+                }
+            };
+
+            deleteAll.onclick = function () {
                 list.innerHTML = '';
                 silinenler.innerHTML = '';
-            }
-            function remove(index){
+                todoArr = [];
+                deletedArr = [];
+            };
+
+            function remove(index) {
                 deletedArr.push(todoArr[index]);
-                todoArr.splice(index,1);
+                todoArr.splice(index, 1);
                 print();
             }
-            function print(){
-                list.innerHTML='';
+
+            function print() {
+                list.innerHTML = '';
                 for (let i = 0; i < todoArr.length; i++) {
-                list.innerHTML += `<div class="list-item">${todoArr[i]} <button onclick="remove(${i})">Delete</button> </div>`;
-            }
-            }
-        deletedItems.onclick = function ShowDeletedItems() {
-            if (silinenler.style.display === 'block') {
-                silinenler.style.display = 'none';
-                deletedItems.innerText = 'Deleted Items';
-            } else {
-                silinenler.style.display = 'block';
-                deletedItems.innerText = 'Hide';
-                silinenler.innerHTML = '';
-                let kod = '';
-                for (let i = 0; i < deletedArr.length; i++) {
-                    kod += `<div class="list-item silinenler">${deletedArr[i]}</div>`;
+                    list.innerHTML += `<div class="list-item">${todoArr[i]} <button onclick="remove(${i})">Delete</button> </div>`;
                 }
-                silinenler.innerHTML = kod;
             }
-        }
 
-
+            deletedItems.onclick = function () {
+                if (silinenler.style.display === 'block') {
+                    silinenler.style.display = 'none';
+                    deletedItems.innerText = 'Deleted Items';
+                } else {
+                    silinenler.style.display = 'block';
+                    deletedItems.innerText = 'Hide';
+                    silinenler.innerHTML = '';
+                    let kod = '';
+                    for (let i = 0; i < deletedArr.length; i++) {
+                        kod += `<div class="list-item silinenler">${deletedArr[i]}</div>`;
+                    }
+                    silinenler.innerHTML = kod;
+                }
+            };
         </script>
     </body>
 </html>
