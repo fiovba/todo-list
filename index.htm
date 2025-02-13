@@ -62,13 +62,12 @@
             .list-item button:hover {
                 background-color:#4d0303 ;
             }
-            #silinenler{
+            .silinenler{
                 background-color: #4d0303;
                 color:white;
-                display: none;
-
             }
         </style>
+        
     </head>
     <body>
         <div class="todo">
@@ -81,59 +80,52 @@
             <div id="silinenler"></div>
         </div>
         <script>
-            const todo = document.getElementById('todo');
-            const list = document.getElementById('list');
-            const add = document.getElementById('add');
-            const deleteAll = document.getElementById('deleteAll');
-            const deletedItems = document.getElementById('deletedItems');
-            const silinenler = document.getElementById('silinenler');
-            let todoArr = [];
-            let deletedArr = [];
-
-            add.onclick = function () {
-                if (todo.value.trim() !== '') {
-                    todoArr.push(todo.value);
-                    print();
-                    todo.value = '';
-                }
-            };
-
-            deleteAll.onclick = function () {
+            const todo = document.getElementById('todo')
+            const list = document.getElementById('list')
+            const add = document.getElementById('add')
+            const deleteAll = document.getElementById('deleteAll')
+            const silinenler = document.getElementById('silinenler')
+            let saygac = 0
+            let todoArr=[];
+            let deletedArr=[];
+            add.onclick =  function add(){
+                todoArr.push(todo.value);
+                print();
+                todo.value=''
+            }
+            deleteAll.onclick= function deleteAll(){
+                todoArr=[]
                 list.innerHTML = '';
                 silinenler.innerHTML = '';
-                todoArr = [];
-                deletedArr = [];
-            };
-
-            function remove(index) {
+            }
+            function remove(index){
                 deletedArr.push(todoArr[index]);
-                todoArr.splice(index, 1);
+                todoArr.splice(index,1);
                 print();
             }
-
-            function print() {
-                list.innerHTML = '';
+            function print(){
+                list.innerHTML='';
                 for (let i = 0; i < todoArr.length; i++) {
-                    list.innerHTML += `<div class="list-item">${todoArr[i]} <button onclick="remove(${i})">Delete</button> </div>`;
-                }
+                list.innerHTML += `<div class="list-item">${todoArr[i]} <button onclick="remove(${i})">Delete</button> </div>`;
             }
-
-            deletedItems.onclick = function () {
-    if (silinenler.style.display === 'none' || silinenler.style.display === '') {
-        silinenler.style.display = 'block';
-        deletedItems.innerText = 'Hide';
-        silinenler.innerHTML = '';
-        let kod = '';
-        for (let i = 0; i < deletedArr.length; i++) {
-            kod += `<div class="list-item silinenler">${deletedArr[i]}</div>`;
+            }
+        deletedItems.onclick = function ShowDeletedItems() {
+            if (silinenler.style.display === 'block') {
+                silinenler.style.display = 'none';
+                deletedItems.innerText = 'Deleted Items';
+            } else {
+                silinenler.style.display = 'block';
+                deletedItems.innerText = 'Hide';
+                silinenler.innerHTML = '';
+                let kod = '';
+                for (let i = 0; i < deletedArr.length; i++) {
+                    kod += `<div class="list-item silinenler">${deletedArr[i]}</div>`;
+                }
+                silinenler.innerHTML = kod;
+            }
         }
-        silinenler.innerHTML = kod;
-    } else {
-        silinenler.style.display = 'none';
-        deletedItems.innerText = 'Deleted Items';
-    }
-};
-            };
+
+
         </script>
     </body>
 </html>
